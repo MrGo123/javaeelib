@@ -20,26 +20,32 @@
         .blockCenter {
             text-align: center;
         }
-        #searchArea{
+
+        #searchArea {
             width: 540px;
             height: 30px;
         }
-        #search_button{
+
+        #search_button {
             width: 60px;
             height: 37px;
         }
-        #goodsClassify{
+
+        #goodsClassify {
             width: 150px;
             height: 25px;
             border: none;
         }
-        #myAcount{
+
+        #myAcount {
             border: none;
         }
-        #shoppingCar{
+
+        #shoppingCar {
             border: none;
         }
-        #hopeList{
+
+        #hopeList {
             border: none;
         }
     </style>
@@ -99,7 +105,7 @@
             </form>
         </td>
         <td colspan="8" bgcolor="#F2F3F4">
-            <form id="form3" name="form3" method="post" action="searchResult">
+            <form id="form3" name="form3" method="get" action="/searchByName">
                 <label for="searchArea"></label>
                 <input onclick="check(searchArea)" type="text" name="searchArea" id="searchArea"/>
                 <input id="search_button" type="submit" value="搜索"/>
@@ -114,10 +120,12 @@
             </form>
         </td>
         <td width="137" bgcolor="#F2F3F4">
-            <a href="/shoppingcar"><img src="images/page3/logo2.png" width="60" height="47"/>
-                <select name="shoppingCar" id="shoppingCar">
-                    <option>购物车</option>
-                </select></a>
+            <form name="shoppingcar" action="/shoppingcar" method="post">
+                <a href="/shoppingcar"><img src="images/page3/logo2.png" width="60" height="47"/>
+                    <select name="shoppingCar" id="shoppingCar">
+                        <option>购物车</option>
+                    </select></a>
+            </form>
 
         </td>
         <td width="97" bgcolor="#F2F3F4">
