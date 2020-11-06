@@ -8,10 +8,16 @@
     <%--    <meta http-equiv="refresh" content="5;url=listStudent">--%>
     <title>Car</title>
     <style>
-        .blockCenter{
+        .blockCenter {
             text-align: center;
         }
+
+        table {
+            border: 3px;
+        }
     </style>
+
+
 </head>
 <body>
 <h2 class="blockCenter">我的购物车</h2>
@@ -31,6 +37,8 @@
 <%--todo1展示购物车商品信息，通过从后端得到list用jsp展示。--%>
 <br>
 <br>
+
+
 <table class="blockCenter" align="center">
     <tr>
         <td>商品编号</td>
@@ -41,24 +49,28 @@
         <td>商品详细信息</td>
         <td>预购数量</td>
     </tr>
-    <% int sumNum=0;
+    <% int sumNum = 0;
+        int i=0;
     %>
-    <c:forEach items="${list}" var="car">
+    <c:forEach items="${list}" var="car" varStatus="flag"><% Car recar; %>
         <tr>
-            <td>${car.id}</td>
+            <td id="carId">${car.id}</td>
             <td>${car.name}</td>
             <td>${car.price}</td>
             <td>${car.originalPrice}</td>
             <td>${car.characters}</td>
             <td>${car.detail}</td>
             <td>${car.num}</td>
+            <td><a href="${pageContext.request.contextPath}/AlterCarProductNum?productId=${car.id}"><button id="alterBttn">修改</button></a></td>
+            <td><a href="${pageContext.request.contextPath}/DeleteCarProduct?productId=${car.id}"><button id="deleteBttn">删除</button></a></td>
         </tr>
     </c:forEach>
 </table>
+
 <div class="blockCenter">
     <p>商品总数：${sumNum} 件
-    结算：${sumCharge} 元
-    平均：${average} 元
+        结算：${sumCharge} 元
+        平均：${average} 元
     </p>
 </div>
 
@@ -71,7 +83,6 @@
         <button>继续添加商品</button>
     </a>
 </div>
-
 
 
 </body>

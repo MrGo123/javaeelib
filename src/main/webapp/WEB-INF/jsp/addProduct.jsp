@@ -20,7 +20,6 @@
 <hr>
 <br>
 <div class="blockCenter">
-
     <%--todo1查找商品--%>
     <form action="/searchProduct" method="get">
         <label>商品编号</label><input type="text" name="search_product_id" id="search_product_id">
