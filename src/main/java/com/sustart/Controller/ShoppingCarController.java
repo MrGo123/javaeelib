@@ -8,10 +8,7 @@ import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
@@ -52,11 +49,17 @@ public class ShoppingCarController {
         model.addAttribute("sumNum", sumNum);
         model.addAttribute("sumCharge", sumCharge);
         model.addAttribute("average", average);
-
         return "ShoppingCar";
     }
 
-    @RequestMapping(value = "/searchCar", method = RequestMethod.GET)
+    @RequestMapping(value = "/carList")
+    @ResponseBody
+    public List< Car> getCarList(){
+        List< Car> carList = carMapper.getCarProduct();
+        return carList;
+    }
+
+    @RequestMapping(value = "/searchCar")
     public String searchPrductByNameOrId(@RequestParam(value = "search_car_id", required = false, defaultValue = "0") int searchId, @RequestParam(value = "search_car_name", required = false) String searchName, Model model) {
         List<Car> list = carMapper.searchByNameOrId(searchId, searchName);
 
@@ -73,7 +76,6 @@ public class ShoppingCarController {
     }
 
     private static int staticCarId;
-    // @RequestParam(value = "productId") int productId,
     @RequestMapping(value = "/AlterCarProductNum", method = RequestMethod.GET)
     public String alterCarProductNum(@RequestParam(value = "productId") int productId, Model model) {
         staticCarId = productId;

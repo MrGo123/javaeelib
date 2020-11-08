@@ -22,6 +22,6 @@ public class SearchResultController {
             return "SearchContentError";
         }
         model.addAttribute("searContent", searContent);
-        return "searchResult";
+        return "redirect:/addToCar";
     }
 }

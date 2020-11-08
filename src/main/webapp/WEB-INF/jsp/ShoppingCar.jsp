@@ -7,31 +7,75 @@
     <meta charset="UTF-8">
     <%--    <meta http-equiv="refresh" content="5;url=listStudent">--%>
     <title>Car</title>
+    <script src="${pageContext.request.contextPath}/statics/js/jquery-3.5.1.js"></script>
     <style>
         .blockCenter {
             text-align: center;
         }
 
         table {
-            border: 3px;
+            border-style: solid;
+            border-width: 2px;
+            border-color: black;
+            background-color: #EBF5FB;
+            text-align: center;
+            padding: 10px;
+        }
+
+
+        #headtitle {
+            text-align: center;
+        }
+
+        #count {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        #navi {
+            width: auto;
+            height: auto;
+            text-align: center;
+            background-color: #AED6F1;
+            padding: 10px 0;
         }
     </style>
 
-
+    <script type="text/javascript">
+        function MyFunction() {
+            $.post("${pageContext.request.contextPath}/carList", function (data) {
+                console.log(data);
+                var html = "";
+                for (var i = 0; i < data.length; i++) {
+                    html += "<tr>" + "<td>" + data[i].id + "</td>"
+                        + "<td>" + data[i].name + "</td>"
+                        + "<td>" + data[i].price + "</td>"
+                        + "<td>" + data[i].originalPrice + "</td>"
+                        + "<td>" + data[i].characters + "</td>"
+                        + "<td>" + data[i].detail + "</td>"
+                        + "<td>" + data[i].num + "</td>"
+                        + "<td>" + "<a href=${pageContext.request.contextPath}/AlterCarProductNum?productId=" + data[i].id + ">" + "<button id='alterBttn'>修改" + "</button>" + "</a>" +
+                        "<a href=${pageContext.request.contextPath}/DeleteCarProduct?productId=" + data[i].id + ">" + "<button id='deleteBttn'>删除" + "</button>" + "</a>" + "</td>" + "</tr>"
+                }
+                $("#content").html(html);
+            })
+        }
+    </script>
 </head>
-<body>
-<h2 class="blockCenter">我的购物车</h2>
-<br>
-<hr>
-<br>
-<%--查找--%>
-<div class="blockCenter">
+<body onload="MyFunction()" style="background-color: #D6EAF8">
+<div id="headtitle">
+    <h2>我的购物车</h2>
+</div>
 
+<%--查找--%>
+<div id="navi">
     <%--todo1查找商品--%>
     <form action="/searchCar" method="get">
-        <label>商品编号</label><input type="text" name="search_car_id" id="search_car_id">
-        <label>商品名称</label><input type="text" name="search_car_name" id="search_car_name">
-        <input type="submit" name="search_button" id="search_button" value="搜索">
+        <label style="margin-right: 10px">商品编号</label><input type="text" name="search_car_id" id="search_car_id"
+                                                             style="margin-right: 20px">
+        <label style="margin-right: 10px">商品名称</label><input type="text" name="search_car_name" id="search_car_name"
+                                                             style="margin-right: 20px">
+        <input type="submit" name="search_button" id="search_button" onclick="searchResult()" value="搜索">
     </form>
 </div>
 <%--todo1展示购物车商品信息，通过从后端得到list用jsp展示。--%>
@@ -39,39 +83,26 @@
 <br>
 
 
-<table class="blockCenter" align="center">
-    <tr>
-        <td>商品编号</td>
-        <td>商品名称</td>
-        <td>商品价格</td>
-        <td>商品原价</td>
-        <td>商品特性</td>
-        <td>商品详细信息</td>
+<table align="center">
+    <tr id="title" class="td">
+        <td>编号</td>
+        <td>名称</td>
+        <td>价格</td>
+        <td>原价</td>
+        <td>特性</td>
+        <td>详细信息</td>
         <td>预购数量</td>
+        <td>操作</td>
     </tr>
-    <% int sumNum = 0;
-        int i=0;
-    %>
-    <c:forEach items="${list}" var="car" varStatus="flag"><% Car recar; %>
-        <tr>
-            <td id="carId">${car.id}</td>
-            <td>${car.name}</td>
-            <td>${car.price}</td>
-            <td>${car.originalPrice}</td>
-            <td>${car.characters}</td>
-            <td>${car.detail}</td>
-            <td>${car.num}</td>
-            <td><a href="${pageContext.request.contextPath}/AlterCarProductNum?productId=${car.id}"><button id="alterBttn">修改</button></a></td>
-            <td><a href="${pageContext.request.contextPath}/DeleteCarProduct?productId=${car.id}"><button id="deleteBttn">删除</button></a></td>
-        </tr>
-    </c:forEach>
+    <tbody id="content">
+
+    </tbody>
 </table>
 
-<div class="blockCenter">
-    <p>商品总数：${sumNum} 件
-        结算：${sumCharge} 元
-        平均：${average} 元
-    </p>
+<div class="blockCenter" id="count">
+    <span style="margin-right: 30px;">商品总数：${sumNum} 件</span>
+    <span style="margin-right: 30px">结算：${sumCharge} 元</span>
+    <span style="margin-right: 30px">平均：${average} 元</span>
 </div>
 
 <%--todo2展示购物车商品数量、总价等。通过直接在本页面用jsp或js计算并显示--%>
@@ -79,9 +110,8 @@
 
 <%--todo3继续购物，调转至添加商品页面addProduct--%>
 <div class="blockCenter">
-    <a href="/addProduct">
-        <button>继续添加商品</button>
-    </a>
+    <button style="width: 80px;margin-right: 50px;"><a href="/">返回首页</a></button>
+    <button style="width: 80px"><a href="/addProduct">去购买</a></button>
 </div>
 
 

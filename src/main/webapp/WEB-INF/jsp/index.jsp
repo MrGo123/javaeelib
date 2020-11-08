@@ -48,6 +48,9 @@
         #hopeList {
             border: none;
         }
+        table{
+
+        }
     </style>
     <script>
         function check(searchArea) {
@@ -60,7 +63,7 @@
     </script>
 </head>
 
-<body>
+<body style="background-color: #EBF5FB;text-align: center">
 <br/>
 <br/>
 <table width="1377" border="0">
@@ -76,11 +79,10 @@
         <th width="109" scope="col"><a href="./inEnglish">In English</a></th>
         <th width="17"></th>
         <th colspan="5" scope="col"><img src="images/page3/logo1.png" width="457" height="58"/></th>
-
     </tr>
-    <tr>
-        <td>&nbsp;</td>
-        <td height="42" bgcolor="#F2F3F4">
+    <tr bgcolor="#85C1E9">
+        <td bgcolor=" #EBF5FB">&nbsp;</td>
+        <td height="42">
             <form id="form1" name="form1" method="post" action="">
                 <label for="goodsClassify">浏览</label>
                 <select name="goodsClassify" id="goodsClassify">
@@ -92,7 +94,7 @@
                 </select>
             </form>
         </td>
-        <td bgcolor="#F2F3F4">
+        <td>
             <form id="form2" name="form2" method="post" action="">
                 <label for="allClassify"></label>
                 <select name="allClassify" id="allClassify">
@@ -104,14 +106,14 @@
                 </select>
             </form>
         </td>
-        <td colspan="8" bgcolor="#F2F3F4">
+        <td colspan="8">
             <form id="form3" name="form3" method="get" action="/searchByName">
                 <label for="searchArea"></label>
                 <input onclick="check(searchArea)" type="text" name="searchArea" id="searchArea"/>
                 <input id="search_button" type="submit" value="搜索"/>
             </form>
         </td>
-        <td width="171" bgcolor="#F2F3F4">
+        <td width="171">
             <form id="form5" name="form5" method="post" action="">
                 <label for="myAcount"></label>
                 <select name="myAcount" id="myAcount">
@@ -119,7 +121,7 @@
                 </select>
             </form>
         </td>
-        <td width="137" bgcolor="#F2F3F4">
+        <td width="137">
             <form name="shoppingcar" action="/shoppingcar" method="post">
                 <a href="/shoppingcar"><img src="images/page3/logo2.png" width="60" height="47"/>
                     <select name="shoppingCar" id="shoppingCar">
@@ -128,7 +130,7 @@
             </form>
 
         </td>
-        <td width="97" bgcolor="#F2F3F4">
+        <td width="97">
             <form id="form7" name="form7" method="post" action="">
                 <label for="hopeList"></label>
                 <select name="hopeList" id="hopeList">
