@@ -43,19 +43,19 @@
 
     <script type="text/javascript">
         function MyFunction() {
-            $.post("${pageContext.request.contextPath}/carList", function (data) {
-                console.log(data);
+            $.post("${pageContext.request.contextPath}/carList", function (carListAPI) {
+                console.log(carListAPI);
                 var html = "";
-                for (var i = 0; i < data.length; i++) {
-                    html += "<tr>" + "<td>" + data[i].id + "</td>"
-                        + "<td>" + data[i].name + "</td>"
-                        + "<td>" + data[i].price + "</td>"
-                        + "<td>" + data[i].originalPrice + "</td>"
-                        + "<td>" + data[i].characters + "</td>"
-                        + "<td>" + data[i].detail + "</td>"
-                        + "<td>" + data[i].num + "</td>"
-                        + "<td>" + "<a href=${pageContext.request.contextPath}/AlterCarProductNum?productId=" + data[i].id + ">" + "<button id='alterBttn'>修改" + "</button>" + "</a>" +
-                        "<a href=${pageContext.request.contextPath}/DeleteCarProduct?productId=" + data[i].id + ">" + "<button id='deleteBttn'>删除" + "</button>" + "</a>" + "</td>" + "</tr>"
+                for (var i = 0; i < carListAPI.length; i++) {
+                    html += "<tr>" + "<td>" + carListAPI[i].id + "</td>"
+                        + "<td>" + carListAPI[i].name + "</td>"
+                        + "<td>" + carListAPI[i].price + "</td>"
+                        + "<td>" + carListAPI[i].originalPrice + "</td>"
+                        + "<td>" + carListAPI[i].characters + "</td>"
+                        + "<td>" + carListAPI[i].detail + "</td>"
+                        + "<td>" + carListAPI[i].num + "</td>"
+                        + "<td>" + "<a href=${pageContext.request.contextPath}/AlterCarProductNum?productId=" + carListAPI[i].id + ">" + "<button id='alterBttn'>修改" + "</button>" + "</a>" +
+                        "<a href=${pageContext.request.contextPath}/DeleteCarProduct?productId=" + carListAPI[i].id + ">" + "<button id='deleteBttn'>删除" + "</button>" + "</a>" + "</td>" + "</tr>"
                 }
                 $("#content").html(html);
             })
@@ -78,7 +78,7 @@
         <input type="submit" name="search_button" id="search_button" onclick="searchResult()" value="搜索">
     </form>
 </div>
-<%--todo1展示购物车商品信息，通过从后端得到list用jsp展示。--%>
+
 <br>
 <br>
 
@@ -105,10 +105,7 @@
     <span style="margin-right: 30px">平均：${average} 元</span>
 </div>
 
-<%--todo2展示购物车商品数量、总价等。通过直接在本页面用jsp或js计算并显示--%>
 
-
-<%--todo3继续购物，调转至添加商品页面addProduct--%>
 <div class="blockCenter">
     <button style="width: 80px;margin-right: 50px;"><a href="/">返回首页</a></button>
     <button style="width: 80px"><a href="/addProduct">去购买</a></button>

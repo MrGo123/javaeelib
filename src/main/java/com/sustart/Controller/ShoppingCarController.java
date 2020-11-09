@@ -38,6 +38,7 @@ public class ShoppingCarController {
      * @param model
      * @return
      */
+    //展示所有商品
     @RequestMapping(value = "/shoppingcar")
     public String CarController(Model model) {
         List<Car> list = carMapper.getCarProduct();
@@ -51,7 +52,7 @@ public class ShoppingCarController {
         model.addAttribute("average", average);
         return "ShoppingCar";
     }
-
+    //ajax商品列表接口
     @RequestMapping(value = "/carList")
     @ResponseBody
     public List< Car> getCarList(){
@@ -59,6 +60,13 @@ public class ShoppingCarController {
         return carList;
     }
 
+    /**
+     * 根据商品id或名称查找某一件商品
+     * @param searchId
+     * @param searchName
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/searchCar")
     public String searchPrductByNameOrId(@RequestParam(value = "search_car_id", required = false, defaultValue = "0") int searchId, @RequestParam(value = "search_car_name", required = false) String searchName, Model model) {
         List<Car> list = carMapper.searchByNameOrId(searchId, searchName);
@@ -76,6 +84,13 @@ public class ShoppingCarController {
     }
 
     private static int staticCarId;
+
+    /**
+     * 修改购物车商品购买数量
+     * @param productId
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/AlterCarProductNum", method = RequestMethod.GET)
     public String alterCarProductNum(@RequestParam(value = "productId") int productId, Model model) {
         staticCarId = productId;
@@ -84,13 +99,24 @@ public class ShoppingCarController {
         return "alterCarNum";
     }
 
+    /**
+     * 保存修改后的商品数量
+     * @param alterNum
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/saveAlter", method = RequestMethod.GET)
     public String saveAlter(@RequestParam(value = "alterNum") int alterNum, HttpServletRequest request) {
         carMapper.updateProduct(staticCarId,alterNum);
         return "redirect:/shoppingcar";
     }
 
-
+    /**
+     * 添加商品到购物车
+     * @param id
+     * @param num
+     * @return
+     */
     @RequestMapping(value = "/addToCar", method = RequestMethod.GET)
     public String addToCar(@RequestParam(value = "add_product_id", required = true, defaultValue = "0") int id, @RequestParam(value = "add_product_num", required = true, defaultValue = "1") int num) {
         List<Car> list = carMapper.getCarProduct();
@@ -119,13 +145,22 @@ public class ShoppingCarController {
         return "redirect:/shoppingcar";
     }
 
+    /**
+     * 删除购物车中的商品
+     * @param productId
+     * @return
+     */
     @RequestMapping(value = "/DeleteCarProduct", method = RequestMethod.GET)
     public String deleteCarProduct(@RequestParam(value = "productId") int productId) {
         int flag = carMapper.deleteProduct(productId);
         return "redirect:/shoppingcar";
     }
 
-
+    /**
+     * 计算商品总数
+     * @param l
+     * @return
+     */
     int sumNum(List<Car> l) {
         int sum = 0;
         for (Car car : l) {
@@ -134,6 +169,11 @@ public class ShoppingCarController {
         return sum;
     }
 
+    /**
+     * 计算商品总价格
+     * @param carList
+     * @return
+     */
     int sumCharge(List<Car> carList) {
         int sum = 0;
         for (Car car : carList) {

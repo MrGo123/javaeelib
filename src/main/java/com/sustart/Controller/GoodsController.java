@@ -29,6 +29,7 @@ public class GoodsController {
     @Autowired
     ProductMapper productMapper;
 
+    //展示所有商品
     @RequestMapping(value = "/addProduct", method = RequestMethod.GET)
     public String addProduct(Model model) {
         /**
@@ -41,6 +42,7 @@ public class GoodsController {
         return "addProduct";
     }
 
+    //通过商品编号或名称查找某件商品
     @RequestMapping(value = "/searchProduct", method = RequestMethod.GET)
     public String searchPrductByNameOrId(@RequestParam(value = "search_product_id", required = false, defaultValue = "0") int searchId, @RequestParam(value = "search_product_name", required = false) String searchName, Model model) {
         List<Product> list = productMapper.searchByNameOrId(searchId, searchName);
@@ -48,8 +50,9 @@ public class GoodsController {
         return "addProduct";
     }
 
+    //通过商品名称查找某件商品，输入内容不合格跳转错误页面
     @RequestMapping(value = "/searchByName", method = RequestMethod.GET)
-    public String indexSearchControl(@RequestParam(value = "searchArea") String searchContent,Model model) {
+    public String indexSearchControl(@RequestParam(value = "searchArea") String searchContent, Model model) {
         int stringLength = searchContent.length();
         if (stringLength > 10 || stringLength < 2) {
             return "searchResult";
